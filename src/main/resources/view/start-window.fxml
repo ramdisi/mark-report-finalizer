@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartWindowController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;">
+         <children>
+            <Label alignment="CENTER" layoutX="96.0" layoutY="14.0" prefHeight="39.0" prefWidth="412.0" text="Mark Report Finalizer" textFill="#17e51b">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" layoutX="69.0" layoutY="88.0" mnemonicParsing="false" onAction="#btn_createMarkSheet_onAction" prefHeight="23.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font-family: Segoe UI; -fx-font-size: 22px;" text="Create Mark Sheet">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Button>
+            <Button layoutX="69.0" layoutY="168.0" mnemonicParsing="false" onAction="#btn_updateDeleteMarkSheet_onAction" prefHeight="45.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font-family: Segoe UI;" text="Update / Delete Mark Sheet">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Button>
+            <Button layoutX="70.0" layoutY="260.0" mnemonicParsing="false" onAction="#btn_generatePDF_onAction" prefHeight="45.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font: Segoe UI;" text="Generate PDF Mark Report">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

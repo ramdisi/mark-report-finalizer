@@ -14,17 +14,17 @@
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="69.0" layoutY="88.0" mnemonicParsing="false" onAction="#btn_createMarkSheet_onAction" prefHeight="23.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font-family: Segoe UI; -fx-font-size: 22px;" text="Create Mark Sheet">
+            <Button alignment="CENTER" layoutX="69.0" layoutY="88.0" mnemonicParsing="false" onAction="#btn_createMarkSheet_onAction" prefHeight="52.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font-family: Segoe UI; -fx-font-size: 21px;" text="Create Mark Sheet">
                <font>
                   <Font size="21.0" />
                </font>
             </Button>
-            <Button layoutX="69.0" layoutY="168.0" mnemonicParsing="false" onAction="#btn_updateDeleteMarkSheet_onAction" prefHeight="45.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font-family: Segoe UI;" text="Update / Delete Mark Sheet">
+            <Button layoutX="69.0" layoutY="168.0" mnemonicParsing="false" onAction="#btn_updateDeleteMarkSheet_onAction" prefHeight="52.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font-family: Segoe UI; -fx-font-size: 21px;" text="Update / Delete Mark Sheet">
                <font>
                   <Font size="21.0" />
                </font>
             </Button>
-            <Button layoutX="70.0" layoutY="260.0" mnemonicParsing="false" onAction="#btn_generatePDF_onAction" prefHeight="45.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font: Segoe UI;" text="Generate PDF Mark Report">
+            <Button layoutX="70.0" layoutY="260.0" mnemonicParsing="false" onAction="#btn_generatePDF_onAction" prefHeight="52.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-background-color: #17e51b; -fx-font-family: Segoe UI; -fx-font-size: 21px;" text="Generate PDF Mark Report">
                <font>
                   <Font size="21.0" />
                </font>

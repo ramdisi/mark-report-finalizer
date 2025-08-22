@@ -2,10 +2,14 @@ package controller;
 import db.DB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +28,8 @@ public class NewMarkSheetController {
 
     @FXML
     private TextField txt_teacherName;
+
+    private Stage stage = new Stage();
 
     @FXML
     void btn_createMarkSheet_OnClick(ActionEvent event) {
@@ -45,8 +51,12 @@ public class NewMarkSheetController {
                 preparedStatement.setString(4,txt_teacherName.getText());
                 preparedStatement.setString(5,txt_examTitle.getText());
                 preparedStatement.execute();
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/add-student-mark-window.fxml"))));
+                stage.show();
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

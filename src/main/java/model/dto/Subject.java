@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+
 public class Subject {
     private Double marks;
     private String name;

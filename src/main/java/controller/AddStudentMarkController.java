@@ -1,10 +1,14 @@
 package controller;
 
 import db.DB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.dto.StudentMarks;
 import model.dto.Subject;
 
 import java.net.URL;
@@ -34,7 +38,7 @@ public class AddStudentMarkController implements Initializable {
     private TableColumn<?, ?> column_regNo;
 
     @FXML
-    private TableView<?> marks_tableView;
+    private TableView<StudentMarks> marks_tableView;
 
     @FXML
     private Label label_subjectMarks;
@@ -61,6 +65,8 @@ public class AddStudentMarkController implements Initializable {
 
     private int currentSubjectIndex;
 
+    private ObservableList<StudentMarks> studentMarksObservableList = FXCollections.observableArrayList();
+
     @FXML
     void btn_addDetails_OnAction(ActionEvent event) {
         String name = txt_name.getText();
@@ -68,7 +74,7 @@ public class AddStudentMarkController implements Initializable {
         try {
             con.prepareStatement("insert into student values ('"+name+"','"+regNo+"','"+examNo+"')").execute();
             for (int i = 0; i < subjectArrayList.size(); i++) {
-                con.prepareStatement("insert into subject_marks values ('"+regNo+"','"+subjectArrayList.get(i).getName()+"',"+subjectArrayList.get(i).getMarks()+")").execute();
+                con.prepareStatement("insert into subject_marks values ('"+regNo+"','"+subjectArrayList.get(i).getName()+"',"+subjectArrayList.get(i).getMarks()+",'"+examNo+"')").execute();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,6 +86,7 @@ public class AddStudentMarkController implements Initializable {
         btn_addMarks.setDisable(false);
         currentSubjectIndex=0;
         label_subjectMarks.setText("Marks For "+subjectArrayList.getFirst().getName());
+        loadTable();
         for (int i = 0; i < subjectArrayList.size(); i++) {
             subjectArrayList.get(i).setMarks(null);//set null for another student
         }
@@ -125,5 +132,38 @@ public class AddStudentMarkController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void loadTable(){
+        try {
+            resultSet = con.prepareStatement("select s.regNo,name,subject,mark from subject_marks as sm,student as s where sm.regNo=s.regNo and sm.examNo='" + examNo+"'").executeQuery();
+            while (resultSet.next()){
+                int index = isExists(resultSet.getString("regNo"));
+                String mark = resultSet.getObject("mark")==null?"absent":resultSet.getString("mark");
+                if (index==-1) {
+                    studentMarksObservableList.add(new StudentMarks(
+                            resultSet.getString("regNo"),
+                            resultSet.getString("subject") + " : " + mark,
+                            resultSet.getString("name")
+                    ));
+                }else {
+                    studentMarksObservableList.get(index).setSubjectMarkString(resultSet.getString("subject"),mark);
+                }
+            }
+            column_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            column_regNo.setCellValueFactory(new PropertyValueFactory<>("regNo"));
+            column_SubjectsMarks.setCellValueFactory(new PropertyValueFactory<>("subjectMarkString"));
+            marks_tableView.setItems(studentMarksObservableList);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private int isExists(String regNo){
+        for (int i = 0; i < studentMarksObservableList.size(); i++) {
+            if (studentMarksObservableList.get(i).getRegNo().equals(regNo)){
+                return i;
+            }
+        }
+        return -1;
     }
 }

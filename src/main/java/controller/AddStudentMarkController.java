@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.dto.StudentMarks;
 import model.dto.Subject;
 
@@ -67,6 +68,8 @@ public class AddStudentMarkController implements Initializable {
 
     private ObservableList<StudentMarks> studentMarksObservableList = FXCollections.observableArrayList();
 
+    private static Stage currentStage;
+
     @FXML
     void btn_addDetails_OnAction(ActionEvent event) {
         String name = txt_name.getText();
@@ -113,7 +116,7 @@ public class AddStudentMarkController implements Initializable {
 
     @FXML
     void btn_finish_OnAction(ActionEvent event) {
-
+        currentStage.close();
     }
 
     @Override
@@ -165,5 +168,8 @@ public class AddStudentMarkController implements Initializable {
             }
         }
         return -1;
+    }
+    public static void setCurrentStage(Stage stage){
+        currentStage = stage;
     }
 }

@@ -13,8 +13,9 @@ public class StartWindowController {
     @FXML
     void btn_createMarkSheet_onAction(ActionEvent event) {
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/add-student-mark-window.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/new-mark-sheet-window.fxml"))));
             stage.show();
+            NewMarkSheetController.setCurrentStage(stage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

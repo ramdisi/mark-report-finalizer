@@ -29,7 +29,7 @@ public class NewMarkSheetController {
     @FXML
     private TextField txt_teacherName;
 
-    private Stage stage = new Stage();
+    private static Stage stage,currentStage;
 
     @FXML
     void btn_createMarkSheet_OnClick(ActionEvent event) {
@@ -51,8 +51,11 @@ public class NewMarkSheetController {
                 preparedStatement.setString(4,txt_teacherName.getText());
                 preparedStatement.setString(5,txt_examTitle.getText());
                 preparedStatement.execute();
+                stage=new Stage();
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/add-student-mark-window.fxml"))));
                 stage.show();
+                AddStudentMarkController.setCurrentStage(stage);
+                currentStage.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -60,5 +63,7 @@ public class NewMarkSheetController {
             throw new RuntimeException(e);
         }
     }
-
+    public static void setCurrentStage(Stage stage){
+        currentStage=stage;
+    }
 }

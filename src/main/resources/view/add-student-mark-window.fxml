@@ -52,7 +52,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btn_addMarks" layoutX="456.0" layoutY="414.0" mnemonicParsing="false" onAction="#btn_addMarksSubject_OnAction" prefHeight="33.0" prefWidth="190.0" style="-fx-background-color: #3edd25; -fx-background-radius: 10px;" text="Add Marks">
+            <Button fx:id="btn_addMarks" layoutX="456.0" layoutY="414.0" mnemonicParsing="false" onAction="#btn_addMarksSubject_OnAction" prefHeight="33.0" prefWidth="190.0" style="-fx-background-color: #3edd25; -fx-background-radius: 10px;" text="Next Subject">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

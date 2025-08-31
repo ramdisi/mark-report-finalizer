@@ -28,7 +28,12 @@ public class StartWindowController {
 
     @FXML
     void btn_updateDeleteMarkSheet_onAction(ActionEvent event) {
-
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/update-delete-window.fxml"))));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

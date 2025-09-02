@@ -89,7 +89,7 @@ public class PDFGenerateController implements Initializable {
             for (String subjectName : selectedExam.getSubjects().split(",")){
                 headerRow.createCell(10, subjectName);
             }
-            headerRow.createCell(10, "Total");
+            headerRow.createCell(10, "Total marks");
             headerRow.createCell(10, "Rank");
             int rank = 1;
             for (RankedStudent student : rankedStudentObservableList){
@@ -131,13 +131,13 @@ public class PDFGenerateController implements Initializable {
                     rankedStudentObservableList.get(index).addSubjectMarks(new Subject((Double) resultSet.getObject("mark"),resultSet.getString("subject")));
                 }
             }
-            for (int i = 0; i < rankedStudentObservableList.size()-1; i++) {
+            for (int i = 0; i < rankedStudentObservableList.size(); i++) { //find each student total
                 for (Subject subject : rankedStudentObservableList.get(i).getSubjectMarks()) {
                     Double mark = subject.getMarks()==null?0.0:subject.getMarks();
                     rankedStudentObservableList.get(i).setTotal(rankedStudentObservableList.get(i).getTotal()+mark);
                 }
             }
-            for (int j = rankedStudentObservableList.size()-1; j >0 ; j--) {
+            for (int j = rankedStudentObservableList.size()-1; j >0 ; j--) { // rank them using bubble sort
                 for (int i = 0; i < j-1; i++) {
                     if (rankedStudentObservableList.get(i).getTotal()<rankedStudentObservableList.get(i+1).getTotal()){
                         RankedStudent temp = rankedStudentObservableList.get(i+1);

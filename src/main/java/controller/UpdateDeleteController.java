@@ -93,7 +93,7 @@ public class UpdateDeleteController implements Initializable {
         try {
             con.prepareStatement("delete from student where regNo='"+selectedRegNo+"' and examNo='"+selectedExamNo+"'").execute();
             con.prepareStatement("delete from subject_marks where regNo='"+selectedRegNo+"' and examNo='"+selectedExamNo+"'").execute();
-            loadTable();
+            cbox_onAction_selectExam(null);//use this method bcz loadTable doesnt work
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -101,34 +101,38 @@ public class UpdateDeleteController implements Initializable {
 
     @FXML
     void btn_onAction_addMarks(ActionEvent event) {
-        Double marks;
-        try {
-            marks = Double.parseDouble(txt_subjectMarks.getText());
-        } catch (NumberFormatException | NullPointerException e) {
-            marks=null;
-        }
-        selectedSubjectArrayList.get(currentSubjectIndex).setMarks(marks);
-        if (currentSubjectIndex == selectedSubjectArrayList.size()-1){
-            btn_addMarks.setDisable(true);
-        }else{
-            label_subjectMarks.setText("Marks For "+selectedSubjectArrayList.get(++currentSubjectIndex).getName());
-            txt_subjectMarks.setText(selectedSubjectArrayList.get(currentSubjectIndex).getMarks()==null?"Absent":selectedSubjectArrayList.get(currentSubjectIndex).getMarks().toString());
-        }
+
+            Double marks;
+            try {
+                marks = Double.parseDouble(txt_subjectMarks.getText());
+            } catch (NumberFormatException | NullPointerException e) {
+                marks = null;
+            }
+            selectedSubjectArrayList.get(currentSubjectIndex).setMarks(marks);
+            if (currentSubjectIndex == selectedSubjectArrayList.size() - 1) {
+                btn_addMarks.setDisable(true);
+            } else {
+                label_subjectMarks.setText("Marks For " + selectedSubjectArrayList.get(++currentSubjectIndex).getName());
+                txt_subjectMarks.setText(selectedSubjectArrayList.get(currentSubjectIndex).getMarks() == null ? "Absent" : selectedSubjectArrayList.get(currentSubjectIndex).getMarks().toString());
+            }
+
     }
 
     @FXML
     void btn_onAction_save(ActionEvent event) {
         String name = txt_name.getText();
         if (radio_addNew.isSelected()){
-            String regNo = txt_regNo.getText();
-            try {
-                con.prepareStatement("insert into student values ('"+name+"','"+regNo+"','"+selectedExamNo+"')").execute();
-                for (int i = 0; i < selectedSubjectArrayList.size(); i++) {
-                    con.prepareStatement("insert into subject_marks values ('"+regNo+"','"+subjectArrayList.get(i).getName()+"',"+subjectArrayList.get(i).getMarks()+",'"+selectedExamNo+"')").execute();
+            if (txt_regNo.getText()!=null) {
+                String regNo = txt_regNo.getText();
+                try {
+                    con.prepareStatement("insert into student values ('" + name + "','" + regNo + "','" + selectedExamNo + "')").execute();
+                    for (int i = 0; i < selectedSubjectArrayList.size(); i++) {
+                        con.prepareStatement("insert into subject_marks values ('" + regNo + "','" + subjectArrayList.get(i).getName() + "'," + subjectArrayList.get(i).getMarks() + ",'" + selectedExamNo + "')").execute();
+                    }
+                    loadTable();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
-                loadTable();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
         }else {
             try {
@@ -153,12 +157,14 @@ public class UpdateDeleteController implements Initializable {
     @FXML
     void onMouseClick_savePreference(MouseEvent event) {
         if (radio_addNew.isSelected()){
+            btn_delete.setDisable(true);
             txt_regNo.setEditable(true);
             txt_subjectMarks.setText(null);
             txt_name.setText(null);
             txt_regNo.setText(null);
             selectedSubjectArrayList = (ArrayList<Subject>)subjectArrayList.clone();
         }else {
+            btn_delete.setDisable(false);
             txt_regNo.setEditable(false);
         }
     }
@@ -207,9 +213,9 @@ public class UpdateDeleteController implements Initializable {
             selectedSubjectArrayList = (ArrayList<Subject>)subjectArrayList.clone();
             radio_addNew.setDisable(false);
             radio_editSelected.setDisable(false);
-            btn_delete.setDisable(false);
             btn_addMarks.setDisable(false);
             btn_save.setDisable(false);
+            btn_delete.setDisable(true);
             radio_addNew.setSelected(true);
             txt_regNo.setEditable(true);
             txt_subjectMarks.setText(null);

@@ -29,7 +29,9 @@ public class NewMarkSheetController {
     @FXML
     private TextField txt_teacherName;
 
-    private static Stage stage,currentStage;
+    private static Stage currentStage;
+
+    private static Stage stage = new Stage();
 
     @FXML
     void btn_createMarkSheet_OnClick(ActionEvent event) {
@@ -51,7 +53,6 @@ public class NewMarkSheetController {
                 preparedStatement.setString(4,txt_teacherName.getText());
                 preparedStatement.setString(5,txt_examTitle.getText());
                 preparedStatement.execute();
-                stage=new Stage();
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/add-student-mark-window.fxml"))));
                 stage.show();
                 AddStudentMarkController.setCurrentStage(stage);

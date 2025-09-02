@@ -74,13 +74,15 @@ public class AddStudentMarkController implements Initializable {
     void btn_addDetails_OnAction(ActionEvent event) {
         String name = txt_name.getText();
         String regNo = txt_regNo.getText();
-        try {
-            con.prepareStatement("insert into student values ('"+name+"','"+regNo+"','"+examNo+"')").execute();
-            for (int i = 0; i < subjectArrayList.size(); i++) {
-                con.prepareStatement("insert into subject_marks values ('"+regNo+"','"+subjectArrayList.get(i).getName()+"',"+subjectArrayList.get(i).getMarks()+",'"+examNo+"')").execute();
+        if (regNo!=null) {
+            try {
+                con.prepareStatement("insert into student values ('" + name + "','" + regNo + "','" + examNo + "')").execute();
+                for (int i = 0; i < subjectArrayList.size(); i++) {
+                    con.prepareStatement("insert into subject_marks values ('" + regNo + "','" + subjectArrayList.get(i).getName() + "'," + subjectArrayList.get(i).getMarks() + ",'" + examNo + "')").execute();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
         txt_subjectMark.setText(null);
         txt_name.setText(null);

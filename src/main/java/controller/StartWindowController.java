@@ -23,7 +23,12 @@ public class StartWindowController {
 
     @FXML
     void btn_generatePDF_onAction(ActionEvent event) {
-
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/pdf-generate-window.fxml"))));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
